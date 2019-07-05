@@ -19,7 +19,7 @@ class Trie {
 					
 				}
 				if(index === word[i].length - 1) {
-					currentNode.isWord = true
+					currentNode[letter].isWord = true
 				} else {
 					currentNode = currentNode[letter]
 
@@ -38,8 +38,8 @@ class Trie {
     	}
     	currentNode = currentNode[letter]
     })
-    console.log(currentNode)
-    console.log(word, currentNode.isWord)
+    // console.log(currentNode)
+    // console.log(word, currentNode.isWord)
     return currentNode.isWord
   }
 

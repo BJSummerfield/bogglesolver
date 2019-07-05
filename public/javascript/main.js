@@ -4,15 +4,15 @@ import Ui from './views/ui.js'
 import Dictionary from './models/bogglewords.js'
 
 var cells = document.querySelector('.dice-container')
-const board = new Board(4,4)
-const ui = new Ui({ element: cells, board})
 const trie = new Trie
-console.log(trie)
+const board = new Board(4,4,trie)
+const ui = new Ui({ element: cells, board})
 ui.boardSetup()
-console.log(board)
-
-// setTimeOut(function() {
-// 	trie.containsWord('retarded')
-// }, 5000)
-
-setTimeout(function(){ trie.containsWord('happying'); }, 3000);
+console.log(board.trie)
+// console.log(board.trie.containsWord('happy'))
+// console.log(trie.isPrefix('unbee'))
+board.solveWords()
+// console.log(board.trie.wordList)
+board.trie.wordList.forEach(function(word) {
+	console.log(word, board.trie.containsWord(word))
+})
