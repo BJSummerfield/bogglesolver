@@ -16,3 +16,5 @@ board.solveWords()
 board.trie.wordList.forEach(function(word) {
 	console.log(word, board.trie.containsWord(word))
 })
+
+console.log(board.trie.wordList.length)

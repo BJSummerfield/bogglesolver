@@ -45,18 +45,22 @@ class Trie {
 
   isPrefix(prefix) {
     var currentNode = this.trie
-    return prefix.split('').every(letter => {
-      if(!currentNode[letter]) {
-        return false;
+    var split = prefix.split('')
+    for (var i = 0; i < split.length; i++) {
+      if (!(split[i] in currentNode)) {
+        // console.log(false)
+        return false
+        break
       }
-      currentNode = currentNode[letter]
-      if (currentNode.isWord === true) {
-      	if (!this.wordList.includes(prefix)) {
-      		this.wordList.push(prefix)
-      	}
-    	}
-      return true
-    });
+      currentNode = currentNode[split[i]]
+      // console.log(split[i])
+    }
+    if (currentNode.isWord === true && !this.wordList.includes(prefix)) {
+      this.wordList.push(prefix)
+    }
+    // console.log(currentNode)
+    // console.log(this.wordList)
+    return true
   }
 
 }

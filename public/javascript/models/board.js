@@ -63,7 +63,8 @@ class Board {
 	}
 
 	solveWords() {
-		
+		// this.visitTable()
+		// this.getWords(0,0)
 		for(var i = 0; i < this.rows; i++) {
 			for(var j = 0; j < this.columns; j ++) {
 				this.visitTable()
@@ -73,25 +74,30 @@ class Board {
 	}
 
 	getWords(x, y) {
-		if(this.visited[x][y] === true) {
+		if (this.visited[x][y] === true) {
+
 			return
 		}
-		// console.log(x,y)
+		// console.log(this.visited)
+		
 		// console.log(this.word)
 		this.word.push(this.dice[x][y])
-		// console.log(this.word.join(''))
+		// console.log(this.word)
 		this.visited[x][y] = true
 		if (this.trie.isPrefix(this.word.join("")) === true) {
 			this.checkNeighbors(x,y)
-		} else {
-			// console.log(this.word)
 			this.word.pop()
-			// this.word.pop()
 			this.visited[x][y] = false
-			return
+
+		
+		} else {
+			this.word.pop()
+			this.visited[x][y] = false
 		}
+		// console.log(this.word)
+	}
 		// this.visited[x][y] = false
-		this.word = []
+
 		// this.word = []
 
 		// if (this.visited[x][y] === true) {
@@ -103,7 +109,7 @@ class Board {
 		// this.visited[x][y] = false
 		// console.log(this.word)
 		// this.word = []
-	}
+	
 	
 
 	visitTable() {
@@ -129,11 +135,12 @@ class Board {
       for (var yoff = -1; yoff <=1; yoff++) {
         var y = j + yoff
         if (y < 0 || y >= this.columns) continue
-  			this.getWords(x,y)
-      	
-      }
- 
+        if (xoff == 0 && yoff == 0) continue
+  				this.getWords(x,y)
+			}
+    	
     }
+
   }
 }	
 
