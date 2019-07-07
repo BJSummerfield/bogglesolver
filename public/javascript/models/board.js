@@ -14,14 +14,16 @@ class Board {
 			['l', 'u', 'p', 'e', 't', 's'],
 			['a', 'c', 'i', 't', 'o', 'a'],
 			['y', 'l', 'g', 'k', 'u', 'e'],
-			['q', 'b', 'm', 'j', 'o', 'a'],
+			// ['qu', 'b', 'm', 'j', 'o', 'a'],
+			['qu', 'qu', 'qu', 'qu', 'qu', 'qu'],
 			['e', 'h', 'i', 's', 'p', 'n'],
 			['v', 'e', 't', 'i', 'g', 'n'],
 			['b', 'a', 'l', 'i', 'y', 't'],
 			['e', 'z', 'a', 'v', 'n', 'd'],
 			['r', 'a', 'l', 'e', 's', 'c'],
 			['u', 'w', 'i', 'l', 'r', 'g'],
-			['p', 'a', 'c', 'e', 'm', 'd']
+			['p', 'a', 'c', 'e', 'm', 'd'],
+
 		]
 		this.trie = trie
 		this.setup()
@@ -86,19 +88,31 @@ class Board {
 		this.visited[x][y] = true
 		if (this.trie.isPrefix(this.word.join("")) === true) {
 			this.checkNeighbors(x,y)
-			this.word.pop()
-			this.visited[x][y] = false
+			// this.word.pop()
+			// this.visited[x][y] = false
+			this.backTrack(x,y)
 
 		
 		} else {
-			this.word.pop()
-			this.visited[x][y] = false
+			this.backTrack(x,y)
+			// this.word.pop()
+			// this.visited[x][y] = false
 		}
 		// console.log(this.word)
 	}
 		// this.visited[x][y] = false
 
-		// this.word = []
+	backTrack(x,y) {
+		var qu = 1
+		if( this.dice[x][y] === 'qu') {
+			qu = 0
+		}
+		for (var i = qu; i <= 1 ; i++) {
+			this.word.pop()
+			} 
+		this.visited[x][y] = false
+	}
+	// this.word = []
 
 		// if (this.visited[x][y] === true) {
 		// 	return
