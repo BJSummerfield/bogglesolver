@@ -18,5 +18,14 @@ class Ui {
 		})
 	}
 
+	showAllWords() {
+		var element = this.element
+		this.board.trie.wordList.forEach(function(word) {
+			var newNode = document.createElement('div')
+			newNode.innerHTML = word
+			element.appendChild(newNode)
+		})
+	}
+
 }
 export default Ui

@@ -5,24 +5,32 @@
   </head>
   <body>
     <title>Boggle</title>
-    <h1>Boggle</h1>
+    
     <div class="ui-container">
       <div>
         <div class="input">
           <input type="button" value="New Game">
         </div>
       </div>
-      <div class="dice-container">
+      <div>
+        <h1>Boggle</h1>
+
+        <div class="dice-container">
+        </div>
+        <div class="text-input">
+          <input type="text" autofocus="true">
+         </div>
       </div>
       <div>
         <div class="input">
           <input type="button" value="Show All Words">
+          <div class="word-container">
+            <div class="allWords"></div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="input">
-      <input type="text" autofocus="true">
-    </div>
+
 
   </body>
   <script type="module" src="/public/javascript/main.js"></script>
