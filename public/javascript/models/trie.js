@@ -3,7 +3,7 @@ class Trie {
     this.dictionary = dictionary
 		this.trie = {}
 		this.wordList = []
-		// this.addWords()
+		this.addWords()
 	}
 
 	addWords() {

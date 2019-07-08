@@ -15,11 +15,11 @@ ui.boardSetup()
 var allWords = document.querySelector('.allWords')
 const theWords = new Ui({ element: allWords, board})
 
-trie.addWords()
+// trie.addWords()
 // console.log(board.trie)
 // console.log(trie)
 // console.log(trie.wordList)
-board.solveWords()
+// board.solveWords()
 theWords.showAllWords()
 
 

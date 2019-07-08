@@ -26,6 +26,7 @@ class Board {
 		]
 		this.trie = trie
 		this.setup()
+		this.solveWords()
 	}
 
 	setup() {
