@@ -6,21 +6,21 @@ import Dictionary from './data/bogglewords.js'
 const dictionary = new Dictionary
 const trie = new Trie(dictionary)
 const board = new Board(4,4,trie)
-
-var cells = document.querySelector('.dice-container')
-const ui = new Ui({ element: cells, board})
-ui.boardSetup()
-
-
 var allWords = document.querySelector('.allWords')
-const theWords = new Ui({ element: allWords, board})
+var input = document.querySelector('.ui-container')
+var cells = document.querySelector('.dice-container')
+const ui = new Ui({ element1: cells, element2: input, element3: allWords, board})
 
-// trie.addWords()
-// console.log(board.trie)
-// console.log(trie)
-// console.log(trie.wordList)
-// board.solveWords()
-theWords.showAllWords()
+
+
+// const buttons = new Ui({ element1: input, board})
+
+// const theWords = new Ui({ element: allWords, board })
+ui.boardSetup()
+ui.showAllWords()
+ui.addListeners()
+
+
 
 
 // board.trie.wordList.forEach(function(word) {
