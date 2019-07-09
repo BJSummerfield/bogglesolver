@@ -2,9 +2,12 @@ class Ui {
 	constructor ({ element1, element2, element3, board}) {
 		this.cells = element1
 		this.input = element2
-		this.allWords = element3
+		this.wordContainer = element3
 		this.board = board
 		this.index = 0
+		this.boardSetup()
+		this.showAllWords()
+		this.addListeners()
 	}
 
 	boardSetup() {
@@ -23,20 +26,26 @@ class Ui {
 
 	showAllWords(index) {
 		if(index === 1) {
-			var allWords = this.allWords
+			var wordContainer = this.wordContainer
+			var newDiv = document.createElement('div')
+			newDiv.className = 'allWords'
+			wordContainer.appendChild(newDiv)
+			var allWords = document.querySelector('.allWords')
 			this.board.trie.wordList.forEach(function(word) {
-				var newNode = document.createElement('div')
+				var newNode = document.createElement('a')
+				newNode.setAttribute('href', `https://www.dictionary.com/browse/${word}?s=t`)
+				newNode.setAttribute('target',"_blank")
 				newNode.innerHTML = word
 				allWords.appendChild(newNode)
 			})
 		}
-		if (index ===0 ) {
+		if (index === 0 ) {
 			this.removeWords()
 		}
 	}
 
 	removeWords() {
-		var allWords = this.allWords
+		var allWords = this.wordContainer
 		while (allWords.firstChild) {
 			allWords.removeChild(allWords.firstChild)
 		}
@@ -59,19 +68,14 @@ class Ui {
 		this.board.solveWords()
 		this.boardSetup()
 		// this.showAllWords(this.index)
-
-
 	}
 
 	buttons() {
 		this.input.addEventListener('click', () => {
-			
-			// newgame button
 			if (event.target.value === "New Game") {
 				this.newGame()
 			}
 			if (event.target.value === "Show All Words") {
-				console.log(this.index)
 				if(this.index === 0) {
 					this.index = 1
 				} else {
@@ -81,7 +85,5 @@ class Ui {
 			}
 		})
 	}
-	
-
 }
 export default Ui

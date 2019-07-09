@@ -7,18 +7,20 @@ body {
 }
 
 .allWords {
+	background-color: #F4F1F0;
+	border: 3px solid #444;
+	border-radius: 10px;
 	display: grid;
 	grid-gap: 2px;
 	justify-content: center;
-	grid-template-columns: repeat(6, auto);
+	grid-template-columns: repeat(8, 50px);
 	grid-template-rows: repeat(9, auto);
-	/*padding-left: 30px*/
 }
 
 .ui-container {
 	display:grid;
 	grid-template-rows: auto auto auto;
-	grid-template-columns: auto auto auto;
+	grid-template-columns: 33% 33% 33%;
 }
 
 .dice-container {
@@ -53,11 +55,16 @@ input[type=text] {
 }
 
 .input {
-	padding-top: 70px;
+	padding-top: 65px;
+	/*padding-bottom: 15px;*/
 	text-align: center;
 }
 
 .text-input {
 	padding-top: 10px;
 	text-align: center;
+}
+
+a {
+	color: darkblue;
 }

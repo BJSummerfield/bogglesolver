@@ -54,7 +54,6 @@ class Trie {
     }
     return true
   }
-
 }
 
 export default Trie
