@@ -1,8 +1,9 @@
 class Ui {
-	constructor ({ element1, element2, element3, board}) {
+	constructor ({ element1, element2, element3, element4, board}) {
 		this.cells = element1
 		this.input = element2
 		this.wordContainer = element3
+		this.inputText = element4
 		this.board = board
 		this.index = 0
 		this.boardSetup()
@@ -33,7 +34,7 @@ class Ui {
 			var allWords = document.querySelector('.allWords')
 			this.board.trie.wordList.forEach(function(word) {
 				var newNode = document.createElement('a')
-				newNode.setAttribute('href', `https://www.dictionary.com/browse/${word}?s=t`)
+				newNode.setAttribute('href', `https://en.wiktionary.org/wiki/${word}`)
 				newNode.setAttribute('target',"_blank")
 				newNode.innerHTML = word
 				allWords.appendChild(newNode)
@@ -53,21 +54,38 @@ class Ui {
 
 	addListeners() {
 		this.buttons()
+		this.textInput()
 	}
 
 	newGame() {
-		var cells = document.querySelector('.dice-container')
-		while(cells.firstChild) {
-			cells.removeChild(cells.firstChild)
+		while(this.cells.firstChild) {
+			this.cells.removeChild(this.cells.firstChild)
 		}
 		this.index = 0
 		this.removeWords()
+		this.board.trie.wordList = []
 		this.board.setup()
 
-		this.board.trie.wordList = []
-		this.board.solveWords()
+	
+
 		this.boardSetup()
 		// this.showAllWords(this.index)
+	}
+
+	textInput() {
+		var board = this.board
+		this.inputText.addEventListener("keyup", function(event){
+			if (event.keyCode === 13) {
+				if (board.trie.containsWord(event.target.value) === true) {
+					console.log(event.target.value, "is a word")
+					event.target.value = ""
+				} else {
+					console.log(event.target.value, "is not a word")
+				}
+				
+
+			}
+		})
 	}
 
 	buttons() {

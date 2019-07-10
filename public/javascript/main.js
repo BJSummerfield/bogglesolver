@@ -9,5 +9,6 @@ const board = new Board(4,4,trie)
 var allWords = document.querySelector('.word-container')
 var input = document.querySelector('.ui-container')
 var cells = document.querySelector('.dice-container')
-const ui = new Ui({ element1: cells, element2: input, element3: allWords, board})
+var inputText = document.querySelector('.text-input')
+const ui = new Ui({ element1: cells, element2: input, element3: allWords, element4: inputText, board})
 

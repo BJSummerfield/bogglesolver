@@ -30,12 +30,15 @@ class Trie {
   containsWord(word) {
     var currentNode = this.trie
     var split = word.split('')
-    split.forEach(function(letter) {
-    	if(!currentNode[letter]){
-    		return false
-    	}
-    	currentNode = currentNode[letter]
-    })
+    for (var i = 0; i < split.length; i++) {
+    	if (!(split[i] in currentNode)) {
+        return false
+        break
+      }
+      currentNode = currentNode[split[i]]
+    }
+  
+    // console.log(word, currentNode.isWord)
     return currentNode.isWord
   }
 

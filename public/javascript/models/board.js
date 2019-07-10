@@ -24,13 +24,17 @@ class Board {
 			['p', 'a', 'c', 'e', 'm', 'd'],
 		]
 		this.trie = trie
+		this.highScore = 0
 		this.setup()
-		this.solveWords()
+		
 	}
 
 	setup() {
 		this.shakeDice()
 		this.boardGrid()
+		this.solveWords()
+		this.maxScore()
+		console.log(this.highScore)
 	}
 
 	shakeDice() {
@@ -69,6 +73,29 @@ class Board {
 				this.getWords(i,j)
 			}
 		}
+	}
+
+	maxScore() {
+		this.highScore = 0
+		var score = 0
+		this.trie.wordList.forEach(function(word) {
+			if (word.length < 5) {
+				score = score + 1
+			}
+			if (word.length === 5) {
+				score = score + 2
+			}
+			if (word.length === 6) {
+				score = score + 3
+			}
+			if (word.length === 7) {
+				score = score + 5
+			}
+			if (word.length > 8) {
+				score = score + 11
+			}
+		})
+		this.highScore = score
 	}
 
 	getWords(x, y) {
