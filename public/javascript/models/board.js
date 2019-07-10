@@ -25,6 +25,7 @@ class Board {
 		]
 		this.trie = trie
 		this.highScore = 0
+		this.counter = 0
 		this.setup()
 		
 	}
@@ -145,6 +146,57 @@ class Board {
         if (y < 0 || y >= this.columns) continue
         if (xoff == 0 && yoff == 0) continue
   				this.getWords(x,y)
+			}
+    }
+  }
+
+  onBoard(letters) {
+  	this.visitTable()
+  	this.word = []
+  	this.counter = 0
+  	var theLetters = letters.split('')
+  	for (var i = 0; i < this.columns; i++) {
+  		for (var j = 0; j < this.rows; j ++) {
+  			if (theLetters[0] === this.dice[i][j]) {
+  				this.checkWord(i,j, theLetters)
+  			}
+  		}
+  	}
+  }
+
+  checkWord(i,j, theLetters) {
+  	var theLetters = theLetters
+  	if (this.visited[i][j] === true) {
+			return
+		}
+		this.visited[i][j] = true
+  	this.word.push(this.dice[i][j])
+  	if (this.dice[i][j] === theLetters[this.counter]) {
+  		this.counter++
+  		this.checkLetterNeighbors(i,j)
+  		this.backTrack()
+  		this.counter = this.counter - 1
+  	} else {
+  		this.backTrack()
+  	}
+
+  	if (this.word === theLetters) {
+  		console.log(this.word)
+  		return true
+  	}
+
+
+  }
+
+  checkLetterNeighbors(i,j, theLetters) {
+    for (var xoff = -1; xoff <=1; xoff++) {
+      var x = i + xoff
+      if (x < 0 || x >= this.rows) continue
+      for (var yoff = -1; yoff <=1; yoff++) {
+        var y = j + yoff
+        if (y < 0 || y >= this.columns) continue
+        if (xoff == 0 && yoff == 0) continue
+  				this.checkWord(x,y,theLetters)
 			}
     }
   }

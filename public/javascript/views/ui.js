@@ -28,6 +28,10 @@ class Ui {
 	showAllWords(index) {
 		if(index === 1) {
 			var wordContainer = this.wordContainer
+			var highScore = document.createElement('div')
+			highScore.className = 'score'
+			highScore.innerHTML = 'Total Points: ' + this.board.highScore
+			wordContainer.appendChild(highScore)
 			var newDiv = document.createElement('div')
 			newDiv.className = 'allWords'
 			wordContainer.appendChild(newDiv)
@@ -73,6 +77,20 @@ class Ui {
 	}
 
 	textInput() {
+		this.textEnter()
+		this.textSubmit()
+	}
+
+	textEnter() {
+		var board = this.board
+		var inputText = this.inputText
+		inputText.addEventListener("input", function(event) {
+			var x = event.target.value
+			board.onBoard(x)
+		})
+	}
+
+	textSubmit() {		
 		var board = this.board
 		this.inputText.addEventListener("keyup", function(event){
 			if (event.keyCode === 13) {
@@ -82,8 +100,6 @@ class Ui {
 				} else {
 					console.log(event.target.value, "is not a word")
 				}
-				
-
 			}
 		})
 	}
