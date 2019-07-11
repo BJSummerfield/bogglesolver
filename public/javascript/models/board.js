@@ -25,7 +25,8 @@ class Board {
 		]
 		this.trie = trie
 		this.highScore = 0
-		this.counter = 0
+		this.inputWord = []
+		this.wordBoard = false
 		this.setup()
 		
 	}
@@ -150,45 +151,45 @@ class Board {
     }
   }
 
-  onBoard(letters) {
+  onBoard() {
   	this.visitTable()
+  	this.wordBoard = false
   	this.word = []
-  	this.counter = 0
-  	var theLetters = letters.split('')
   	for (var i = 0; i < this.columns; i++) {
   		for (var j = 0; j < this.rows; j ++) {
-  			if (theLetters[0] === this.dice[i][j]) {
-  				this.checkWord(i,j, theLetters)
+  			if (this.inputWord[0] === this.dice[i][j]) {
+  				if(this.inputWord.length > 1){
+  					this.counter = -1
+  					this.checkWord(i,j)
+  					console.log(this.wordBoard)
+  				}
   			}
   		}
   	}
   }
 
-  checkWord(i,j, theLetters) {
-  	var theLetters = theLetters
-  	if (this.visited[i][j] === true) {
+  checkWord(i,j) {
+  	var split = this.inputWord.split('')
+		if (this.visited[i][j] === true) {
 			return
 		}
+		this.counter++
 		this.visited[i][j] = true
-  	this.word.push(this.dice[i][j])
-  	if (this.dice[i][j] === theLetters[this.counter]) {
-  		this.counter++
+		this.word.push(this.dice[i][j])
+		if(this.word.join('') === this.inputWord) {
+  		this.wordBoard = true
+  		}
+  	if (this.dice[i][j] === split[this.counter]) {
   		this.checkLetterNeighbors(i,j)
-  		this.backTrack()
+  		this.backTrack(i,j)
   		this.counter = this.counter - 1
   	} else {
-  		this.backTrack()
-  	}
+  		this.backTrack(i,j)
+  		this.counter = this.counter - 1
+		}
+	}
 
-  	if (this.word === theLetters) {
-  		console.log(this.word)
-  		return true
-  	}
-
-
-  }
-
-  checkLetterNeighbors(i,j, theLetters) {
+  checkLetterNeighbors(i,j) {
     for (var xoff = -1; xoff <=1; xoff++) {
       var x = i + xoff
       if (x < 0 || x >= this.rows) continue
@@ -196,7 +197,7 @@ class Board {
         var y = j + yoff
         if (y < 0 || y >= this.columns) continue
         if (xoff == 0 && yoff == 0) continue
-  				this.checkWord(x,y,theLetters)
+  			this.checkWord(x,y)
 			}
     }
   }

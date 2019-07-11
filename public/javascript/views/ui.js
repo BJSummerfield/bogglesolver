@@ -85,8 +85,8 @@ class Ui {
 		var board = this.board
 		var inputText = this.inputText
 		inputText.addEventListener("input", function(event) {
-			var x = event.target.value
-			board.onBoard(x)
+			board.inputWord = event.target.value
+			board.onBoard()
 		})
 	}
 
