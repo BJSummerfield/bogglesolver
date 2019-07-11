@@ -70,9 +70,9 @@ class Board {
 	}
 
 	solveWords() {
-		this.visitTable()
 		for(var i = 0; i < this.rows; i++) {
 			for(var j = 0; j < this.columns; j ++) {
+				this.visitTable()
 				this.getWords(i,j)
 			}
 		}
