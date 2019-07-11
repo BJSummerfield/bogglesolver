@@ -16,6 +16,16 @@ body {
 	grid-template-rows: repeat(9, auto);
 }
 
+.playerWords {
+	background-color: #F4F1F0;
+	border: 3px solid #444;
+	border-radius: 10px;
+	display: grid;
+	justify-content: center;
+	grid-template-columns: repeat(6, auto);
+	grid-template-rows: repeat(9, auto);
+}
+
 .ui-container {
 	display:grid;
 	grid-template-rows: auto auto auto;

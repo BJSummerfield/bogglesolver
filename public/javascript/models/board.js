@@ -26,6 +26,8 @@ class Board {
 		this.trie = trie
 		this.highScore = 0
 		this.inputWord = []
+		this.foundWords = []
+		this.playerScore = 0
 		this.wordBoard = false
 		this.setup()
 		
@@ -36,7 +38,6 @@ class Board {
 		this.boardGrid()
 		this.solveWords()
 		this.maxScore()
-		console.log(this.highScore)
 	}
 
 	shakeDice() {
@@ -74,6 +75,24 @@ class Board {
 			for(var j = 0; j < this.columns; j ++) {
 				this.getWords(i,j)
 			}
+		}
+	}
+
+	playersScore(word) {
+		if (word.length < 5) {
+			return 1
+		}
+		if (word.length === 5) {
+			return 2
+		}
+		if (word.length === 6) {
+			return 3
+		}
+		if (word.length === 7) {
+			return 5
+		}
+		if (word.length > 8) {
+			return 11
 		}
 	}
 
@@ -161,7 +180,6 @@ class Board {
   				if(this.inputWord.length > 1){
   					this.counter = -1
   					this.checkWord(i,j)
-  					console.log(this.wordBoard)
   				}
   			}
   		}
@@ -169,22 +187,23 @@ class Board {
   }
 
   checkWord(i,j) {
-  	var split = this.inputWord.split('')
 		if (this.visited[i][j] === true) {
 			return
 		}
 		this.counter++
 		this.visited[i][j] = true
 		this.word.push(this.dice[i][j])
-		if(this.word.join('') === this.inputWord) {
+		if(this.word.join('') === this.inputWord.join('')) {
   		this.wordBoard = true
   		}
-  	if (this.dice[i][j] === split[this.counter]) {
+  	if (this.dice[i][j] === this.inputWord[this.counter]) {
   		this.checkLetterNeighbors(i,j)
-  		this.backTrack(i,j)
+  		this.visited[i][j] = false
+  		this.word.pop()
   		this.counter = this.counter - 1
   	} else {
-  		this.backTrack(i,j)
+  		this.visited[i][j] = false
+  		this.word.pop()
   		this.counter = this.counter - 1
 		}
 	}

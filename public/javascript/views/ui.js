@@ -4,6 +4,7 @@ class Ui {
 		this.input = element2
 		this.wordContainer = element3
 		this.inputText = element4
+		this.playerContainer = document.querySelector('.player-container')
 		this.board = board
 		this.index = 0
 		this.boardSetup()
@@ -22,6 +23,33 @@ class Ui {
 				cells.appendChild(newNode)
 				counter++
 			})
+		})
+	}
+
+	removePlayerWords() {
+		var playerContainer = this.playerContainer
+		while (playerContainer.firstChild) {
+			playerContainer.removeChild(playerContainer.firstChild)
+		}
+	}
+
+	playerWord() {
+		var playerContainer = this.playerContainer
+		this.removePlayerWords()
+		var playerScore = document.createElement('div')
+		playerScore.className = 'score'
+		playerScore.innerHTML = 'Score: ' + this.board.playerScore
+		playerContainer.appendChild(playerScore)
+		var newDiv = document.createElement('div')
+		newDiv.className = 'playerWords'
+		playerContainer.appendChild(newDiv)
+		var playerWords = document.querySelector('.playerWords')
+		this.board.foundWords.forEach(function(word) {
+			var newNode = document.createElement('a')
+			newNode.setAttribute('href', `https://en.wiktionary.org/wiki/${word}`)
+			newNode.setAttribute('target',"_blank")
+			newNode.innerHTML = word
+			playerWords.appendChild(newNode)
 		})
 	}
 
@@ -67,13 +95,10 @@ class Ui {
 		}
 		this.index = 0
 		this.removeWords()
+		this.removePlayerWords()
 		this.board.trie.wordList = []
 		this.board.setup()
-
-	
-
 		this.boardSetup()
-		// this.showAllWords(this.index)
 	}
 
 	textInput() {
@@ -85,16 +110,25 @@ class Ui {
 		var board = this.board
 		var inputText = this.inputText
 		inputText.addEventListener("input", function(event) {
-			board.inputWord = event.target.value
+			board.inputWord = event.target.value.split('')
+			for (var x = 0; x < board.inputWord.length; x++) {
+  			if (board.inputWord[x] === 'q') {
+  				board.inputWord[x] = board.inputWord[x] + 'u'
+  				board.inputWord.splice(x+1,1)
+	  		}
+	  	}
 			board.onBoard()
 		})
 	}
 
 	textSubmit() {		
 		var board = this.board
-		this.inputText.addEventListener("keyup", function(event){
+		this.inputText.addEventListener("keyup", () => {
 			if (event.keyCode === 13) {
-				if (board.trie.containsWord(event.target.value) === true) {
+				if (board.trie.containsWord(event.target.value) === true && !board.foundWords.includes(event.target.value) && board.wordBoard === true) {
+					board.foundWords.push(event.target.value)
+					board.playerScore = board.playerScore + board.playersScore(event.target.value)
+					this.playerWord()
 					console.log(event.target.value, "is a word")
 					event.target.value = ""
 				} else {
