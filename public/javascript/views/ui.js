@@ -98,6 +98,7 @@ class Ui {
 		this.removePlayerWords()
 		this.board.trie.wordList = []
 		this.board.foundWords = []
+		this.board.playerScore = 0
 		this.board.setup()
 		this.boardSetup()
 	}
