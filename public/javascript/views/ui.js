@@ -112,7 +112,7 @@ class Ui {
 		var board = this.board
 		var inputText = this.inputText
 		inputText.addEventListener("input", function(event) {
-			board.inputWord = event.target.value.split('')
+			board.inputWord = event.target.value.toLowerCase().split('')
 			for (var x = 0; x < board.inputWord.length; x++) {
   			if (board.inputWord[x] === 'q') {
   				board.inputWord[x] = board.inputWord[x] + 'u'
@@ -127,8 +127,8 @@ class Ui {
 		var board = this.board
 		this.inputText.addEventListener("keyup", () => {
 			if (event.keyCode === 13) {
-				if (board.trie.containsWord(event.target.value) === true && !board.foundWords.includes(event.target.value) && board.wordBoard === true) {
-					board.foundWords.push(event.target.value)
+				if (board.trie.containsWord(event.target.value.toLowerCase()) === true && !board.foundWords.includes(event.target.value.toLowerCase()) && board.wordBoard === true) {
+					board.foundWords.push(event.target.value.toLowerCase())
 					board.playerScore = board.playerScore + board.playersScore(event.target.value)
 					this.playerWord()
 					console.log(event.target.value, "is a word")
